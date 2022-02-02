@@ -40,7 +40,12 @@ class CalendarsController < ApplicationController
         wday_num = wday_num % 7
       end
 
-      days = { month: (@todays_date + x).month, date: (@todays_date+x).day, plans: today_plans, wday: wdays[wday_num] }
+      fix_wday_num = wday_num + x
+      if fix_wday_num + x >= 7
+        fix_wday_num = fix_wday_num - 7
+      end
+
+      days = { month: (@todays_date + x).month, date: (@todays_date+x).day, plans: today_plans, wday: wdays[fix_wday_num] }
       @week_days.push(days)
     end
 
